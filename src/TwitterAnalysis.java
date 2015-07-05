@@ -7,14 +7,18 @@
  */
 public class TwitterAnalysis
 {
-    // constants
+    // constants - input
     private static final String INPUT_FILE = "tweet_input/tweets.txt" ;
     private static final String CHARSET_NAME = "US-ASCII" ;
+    
+    // constants - output
+    private static final String WORD_COUNT_FILE = "tweet_output/ft1.txt" ;
+    private static final String MEDIAN_FILE = "tweet_output/ft2.txt" ;
     
     // reads the input
     private StreamReader _input ;
     
-    // Unique words and # occurrences
+    // Unique words and # occurrences - all tweets
     private WordsAnalysis _words ;
     
     // Running median
@@ -32,9 +36,10 @@ public class TwitterAnalysis
     {
         
         _input = new StreamReader( INPUT_FILE , CHARSET_NAME ) ;
-        _words = new WordsAnalysis() ;
-        _median = new RunningMedian() ;
+        _words = new WordsAnalysis( WORD_COUNT_FILE ) ;
+        _median = new RunningMedian( MEDIAN_FILE ) ;
         
+        // analyse each tweet - print running median
         while( _input.hasNextTweet() )
         {
             _input.nextTweet() ;
@@ -43,6 +48,9 @@ public class TwitterAnalysis
             _median.printRunningMedian() ;
         }
         
+        _median.closeWriter() ;
+        
+        // complete analysing all tweets - print word counts
         _words.printWordCounts() ;
     }
     

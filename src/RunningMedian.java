@@ -1,3 +1,8 @@
+import java.io.BufferedWriter ;
+import java.io.File ;
+import java.io.FileWriter ;
+import java.io.IOException ;
+
 import java.util.PriorityQueue ;
 
 /**
@@ -9,6 +14,9 @@ import java.util.PriorityQueue ;
  */
 public class RunningMedian
 {
+	// buffered writer for writing to file
+	private BufferedWriter _writer ; 
+	
     // calculates running median using 2 heaps - a max heap and a min heap
     private PriorityQueue<Integer> _maxHeap ;   // values < median
     private PriorityQueue<Integer> _minHeap ;   // values >= median
@@ -22,13 +30,33 @@ public class RunningMedian
     /**
      * Constructor. Initialises the queues used for calculating the running
      * median.
+     * 
+     * @param filename The name the output file.
      */
-    public RunningMedian()
+    public RunningMedian( String filename )
     {
         _maxHeap = new PriorityQueue<Integer>() ;
         _minHeap = new PriorityQueue<Integer>() ;
         
         _median = 0 ;
+        
+        // initialises writing to file
+        try
+        {
+        	File file = new File( filename ) ;
+        	
+        	if( ! file.exists() )
+        	{
+        		file.createNewFile() ;
+        	}
+        	
+        	_writer = new BufferedWriter( new FileWriter(file.getAbsoluteFile(),false) ) ;
+        }
+        catch( IOException ioe )
+        {
+        	System.out.println( "IOException at file opening - running median" ) ;
+        	ioe.printStackTrace() ;
+        }
     }
     
     
@@ -113,11 +141,32 @@ public class RunningMedian
     
     /**
      * Prints the running median to the specified file.
-     * 
-     * ###### tmp prints to std out ######
      */
     public void printRunningMedian()
     {
-        System.out.println( _median + "" ) ;
+    	try
+    	{
+    		_writer.write( _median + "" ) ;
+    		_writer.newLine() ;
+    		
+    		System.out.println( "running median: " + _median ) ;
+    	}
+    	catch( IOException ioe )
+    	{
+    		System.out.println( "IOException on writing to file - running median" ) ; 
+    	}
+    }
+    
+    public void closeWriter()
+    {
+    	try
+    	{
+    		_writer.close() ;
+    	}
+    	catch( IOException ioe )
+    	{
+    		System.out.println( "IOException at BufferedWriter closing - running median" ) ;
+    		ioe.printStackTrace() ;
+    	}
     }
 }

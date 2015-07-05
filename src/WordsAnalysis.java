@@ -11,6 +11,9 @@ import java.util.TreeMap ;
  */
 public class WordsAnalysis
 {
+	// file for printing output
+	private final String _filename ;
+	
     // unique words stored in a map, as <Word,Occurrence> pairs.
     private TreeMap<String,Integer> _map ;
     
@@ -23,7 +26,20 @@ public class WordsAnalysis
      */
     public WordsAnalysis()
     {
-        _map = new TreeMap<String,Integer>() ;
+    	this( null ) ;
+    }
+    
+    /**
+     * Constructor. Initializes the map used for keeping track of each word and
+     * their word counts. This takes in a filename for printing output using the
+     * {@code printWordCounts()} method.
+     * 
+     * @param filename The name of the output file.
+     */
+    public WordsAnalysis( String filename )
+    {
+    	_filename = filename ;
+    	_map = new TreeMap<String,Integer>() ;
     }
     
     
@@ -109,7 +125,7 @@ public class WordsAnalysis
             String key = iterator.next() ;
             int val = _map.get( key ).intValue() ;
             
-            System.out.println( String.format("%-70s %d",key,val) ) ;
+            System.out.println( String.format("%-50s %d",key,val) ) ;
         }
     }
 }
