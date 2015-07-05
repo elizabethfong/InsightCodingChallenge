@@ -31,7 +31,7 @@ public class WordsAnalysis
      */
     public WordsAnalysis()
     {
-    	this( null ) ;
+    	this( null , null ) ;
     }
     
     /**
@@ -39,9 +39,10 @@ public class WordsAnalysis
      * their word counts. This takes in a filename for printing output using the
      * {@code printWordCounts()} method.
      * 
+     * @param directory The name of the directory the output file should be located.
      * @param filename The name of the output file.
      */
-    public WordsAnalysis( String filename )
+    public WordsAnalysis( String directory , String filename )
     {
     	_filename = filename ;
     	_map = new TreeMap<String,Integer>() ;

@@ -24,19 +24,31 @@ public class StreamReader
     /**
      * Constructor. Enables reading of the given file, using the given charset.
      * 
-     * @param pathname The path of the file to be read.
+     * @param directory The name of the directory the file is located.
+     * @param filename The name of the file to be read.
      * @param charset The character set of the given file.
      */
-    public StreamReader( String pathname , String charset )
+    public StreamReader( String directory , String filename , String charset )
     {
         try
         {
-            _fileScanner = new Scanner( new File(pathname) , charset ) ;
+        	// error catching for directory not found
+        	File file = new File( directory ) ;
+        	
+        	if( ! file.exists() )
+        	{
+        		file.mkdir() ;
+        		System.out.println( "Please provide an input file named " + filename + " in the " + directory + " directory." ) ;
+        		System.exit(0) ;
+        	}
+        	
+        	// directory exists, try to open file
+            _fileScanner = new Scanner( new File(directory+"/"+filename) , charset ) ;
             _fileScanner.useDelimiter( System.lineSeparator() ) ;
         }
         catch( FileNotFoundException fnfe )
         {
-            System.out.println( "Please provide an input file in the tweet_input directory." ) ;
+            System.out.println( "Please provide an input file named " + filename + " in the " + directory + " directory." ) ;
             System.exit(0) ;
         }
     }

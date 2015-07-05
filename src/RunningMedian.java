@@ -33,7 +33,7 @@ public class RunningMedian
      * 
      * @param filename The name the output file.
      */
-    public RunningMedian( String filename )
+    public RunningMedian( String directory , String filename )
     {
         _maxHeap = new PriorityQueue<Integer>() ;
         _minHeap = new PriorityQueue<Integer>() ;
