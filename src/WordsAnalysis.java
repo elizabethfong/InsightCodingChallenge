@@ -107,9 +107,9 @@ public class WordsAnalysis
         while( iterator.hasNext() )
         {
             String key = iterator.next() ;
-            String val = _map.get( key ).toString() ;
+            int val = _map.get( key ).intValue() ;
             
-            System.out.println( key + "         " + val ) ;
+            System.out.println( String.format("%-70s %d",key,val) ) ;
         }
     }
 }

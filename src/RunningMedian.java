@@ -1,6 +1,7 @@
 import java.util.PriorityQueue ;
 
 /**
+ * Part 2.
  * A class which calculates the running median of unique words in each tweet.
  * 
  * @author Elizabeth Fong
