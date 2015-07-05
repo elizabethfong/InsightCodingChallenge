@@ -17,6 +17,7 @@ import java.util.TreeMap ;
 public class WordsAnalysis
 {
 	// file for printing output
+	private final String _directory ;
 	private final String _filename ;
 	
     // unique words stored in a map, as <Word,Occurrence> pairs.
@@ -44,6 +45,7 @@ public class WordsAnalysis
      */
     public WordsAnalysis( String directory , String filename )
     {
+    	_directory = directory ;
     	_filename = filename ;
     	_map = new TreeMap<String,Integer>() ;
     }
@@ -124,19 +126,10 @@ public class WordsAnalysis
     {
     	try
     	{
-        	// init file writing
-        	File file = new File( _filename ) ;
-        	
-        	if( ! file.exists() )
-        	{
-        		file.createNewFile() ;
-        	}
-        	
-        	BufferedWriter writer = new BufferedWriter( new FileWriter(file.getAbsoluteFile(),false) ) ;
-        	
-        	// print each key and its value from map to file
+        	BufferedWriter writer = createWriter() ;
         	Iterator<String> iterator = _map.navigableKeySet().iterator() ;
         	
+        	// print each key and its value from map to file
         	while( iterator.hasNext() )
         	{
         		String key = iterator.next() ;
@@ -157,5 +150,35 @@ public class WordsAnalysis
     		System.out.println( "IOException on writing word counts to file - WordsAnalysis" ) ;
     		ioe.printStackTrace() ;
     	}
+    }
+    
+    /**
+     * Returns a {@code BufferedWriter} to write to the specified file.
+     * If the file or directory does not exist, create them.
+     * 
+     * @return The created {@code BufferedWriter}.
+     * 
+     * @throws IOException Thrown when an IO Exception occurs.
+     */
+    private BufferedWriter createWriter() throws IOException
+    {
+    	// directory not found
+    	File file = new File( _directory ) ;
+    	
+    	if( ! file.exists() )
+    	{
+    		file.mkdir() ;
+    	}
+    	
+    	// file not found
+    	file = new File( _directory + "/" + _filename ) ;
+    	
+    	if( ! file.exists() )
+    	{
+    		file.createNewFile() ;
+    	}
+    	
+    	// init writing
+    	return new BufferedWriter( new FileWriter(file.getAbsoluteFile(),false) ) ;
     }
 }

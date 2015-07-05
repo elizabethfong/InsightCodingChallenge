@@ -32,7 +32,7 @@ public class StreamReader
     {
         try
         {
-        	// error catching for directory not found
+        	// directory not found
         	File file = new File( directory ) ;
         	
         	if( ! file.exists() )
@@ -43,7 +43,8 @@ public class StreamReader
         	}
         	
         	// directory exists, try to open file
-            _fileScanner = new Scanner( new File(directory+"/"+filename) , charset ) ;
+        	file = new File( directory + "/" + filename ) ;
+            _fileScanner = new Scanner( file , charset ) ;
             _fileScanner.useDelimiter( System.lineSeparator() ) ;
         }
         catch( FileNotFoundException fnfe )

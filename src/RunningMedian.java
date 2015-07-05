@@ -31,6 +31,7 @@ public class RunningMedian
      * Constructor. Initialises the queues used for calculating the running
      * median.
      * 
+     * @param directory The name of the directory the output file should be located.
      * @param filename The name the output file.
      */
     public RunningMedian( String directory , String filename )
@@ -40,25 +41,46 @@ public class RunningMedian
         
         _median = 0 ;
         
-        // initialises writing to file
-        try
-        {
-        	File file = new File( filename ) ;
-        	
-        	if( ! file.exists() )
-        	{
-        		file.createNewFile() ;
-        	}
-        	
-        	_writer = new BufferedWriter( new FileWriter(file.getAbsoluteFile(),false) ) ;
-        }
-        catch( IOException ioe )
+        // init writing to file
+        createWriter( directory , filename ) ;
+    }
+    
+    /**
+     * Creates a {@code BufferedWriter} to write to the specified file.
+     * If the file or directory does not exist, create them.
+     * 
+     * @param directory The name of the directory the output file should be located.
+     * @param filename The name the output file.
+     */
+    private void createWriter( String directory , String filename )
+    {
+    	try
+    	{
+    		// directory not found
+    		File file = new File( directory ) ;
+    		
+    		if( ! file.exists() )
+    		{
+    			file.mkdir() ;
+    		}
+    		
+    		// file not found
+    		file = new File( directory + "/" + filename ) ;
+    		
+    		if( ! file.exists() )
+    		{
+    			file.createNewFile() ;
+    		}
+    		
+    		// init writing
+    		_writer = new BufferedWriter( new FileWriter(file.getAbsoluteFile(),false) ) ;
+    	}
+    	catch( IOException ioe )
         {
         	System.out.println( "IOException at file opening - running median" ) ;
         	ioe.printStackTrace() ;
         }
     }
-    
     
     /* --- ADD VALUE AND CALCULATE MEDIAN ----------------------------------- */
     
