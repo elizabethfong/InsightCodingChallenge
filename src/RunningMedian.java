@@ -157,6 +157,9 @@ public class RunningMedian
     	}
     }
     
+    /**
+     * Closes the {@code BufferedWriter}.
+     */
     public void closeWriter()
     {
     	try

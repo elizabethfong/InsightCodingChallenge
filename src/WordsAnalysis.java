@@ -1,3 +1,8 @@
+import java.io.BufferedWriter ;
+import java.io.File ;
+import java.io.FileWriter ;
+import java.io.IOException ;
+
 import java.util.Iterator ;
 import java.util.TreeMap ;
 
@@ -113,19 +118,43 @@ public class WordsAnalysis
     /**
      * Prints each word and their respective word counts to the specified
      * output file.
-     * 
-     * ########### tmp prints to std out ##########
      */
     public void printWordCounts()
     {
-        Iterator<String> iterator = _map.navigableKeySet().iterator() ;
-        
-        while( iterator.hasNext() )
-        {
-            String key = iterator.next() ;
-            int val = _map.get( key ).intValue() ;
-            
-            System.out.println( String.format("%-50s %d",key,val) ) ;
-        }
+    	try
+    	{
+        	// init file writing
+        	File file = new File( _filename ) ;
+        	
+        	if( ! file.exists() )
+        	{
+        		file.createNewFile() ;
+        	}
+        	
+        	BufferedWriter writer = new BufferedWriter( new FileWriter(file.getAbsoluteFile(),false) ) ;
+        	
+        	// print each key and its value from map to file
+        	Iterator<String> iterator = _map.navigableKeySet().iterator() ;
+        	
+        	while( iterator.hasNext() )
+        	{
+        		String key = iterator.next() ;
+        		int val = _map.get( key ).intValue() ;
+        		
+        		String formatted = String.format( "%-50s %d" , key , val ) ;
+        		
+        		writer.write( formatted ) ;
+        		writer.newLine() ;
+        		
+        		System.out.println( formatted ) ;
+        	}
+        	
+        	writer.close() ;
+    	}
+    	catch( IOException ioe )
+    	{
+    		System.out.println( "IOException on writing word counts to file - WordsAnalysis" ) ;
+    		ioe.printStackTrace() ;
+    	}
     }
 }
