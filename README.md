@@ -3,7 +3,7 @@ _Author:_ Elizabeth Fong
 _Submission Date:_ 10th July 2015   
 _Language:_ Java   
 
-## Program Files   
+## Program Files:   
 ### TwitterAnalysis   
 The main class. Executing this runs the program.   
 
