@@ -12,7 +12,7 @@ import java.util.TreeMap ;
  * Also keeps track of how many times each of the unique words occur.
  * 
  * @author Elizabeth Fong
- * @version 6th July 2015
+ * @version 10th July 2015
  */
 public class WordsAnalysis
 {

@@ -8,7 +8,7 @@ import java.util.Scanner ;
  * Each tweet is separated by a newline and each word is separated by whitespace.
  * 
  * @author Elizabeth Fong
- * @version 6th July 2015
+ * @version 10th July 2015
  */
 public class StreamReader
 {
