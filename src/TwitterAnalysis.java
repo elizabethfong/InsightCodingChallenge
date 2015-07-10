@@ -9,10 +9,10 @@ public class TwitterAnalysis
 {
     // constants - input
 	private static final String INPUT_DIR = "tweet_input" ;
-    private static final String INPUT_FILE = "tweets.txt" ;
+	private static final String INPUT_FILE = "tweets.txt" ;
     private static final String CHARSET_NAME = "US-ASCII" ;
     
-    // constants - output
+    // constants - outputs
     private static final String OUTPUT_DIR = "tweet_output" ;
     private static final String WORD_COUNT_FILE = "ft1.txt" ;
     private static final String MEDIAN_FILE = "ft2.txt" ;
@@ -36,7 +36,6 @@ public class TwitterAnalysis
      */
     public TwitterAnalysis()
     {
-        
         _input = new StreamReader( INPUT_DIR , INPUT_FILE , CHARSET_NAME ) ;
         _words = new WordsAnalysis( OUTPUT_DIR , WORD_COUNT_FILE ) ;
         _median = new RunningMedian( OUTPUT_DIR , MEDIAN_FILE ) ;
